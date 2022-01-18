@@ -6,7 +6,6 @@ export const ChainType = {
     name: 'main',
     blockExplorerUrl: `https://${ETHERSCAN_URL}`,
     l2Id: 'SN_MAIN',
-    l2IdPrefix: '23448594291968334',
     l2BlockExplorerUrl: `https://${VOYAGER_URL}`
   },
   GOERLI: {
@@ -14,7 +13,6 @@ export const ChainType = {
     name: 'goerli',
     blockExplorerUrl: `https://goerli.${ETHERSCAN_URL}`,
     l2Id: 'SN_GOERLI',
-    l2IdPrefix: '1536727068981429685321',
     l2BlockExplorerUrl: `https://goerli.${VOYAGER_URL}`
   }
 };

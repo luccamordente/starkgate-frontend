@@ -42,3 +42,14 @@ export const parseFromUint256 = (value, decimals = DEFAULT_DECIMALS) => {
   const bnString = uint256ToBN(value).toString();
   return parseFromDecimals(bnString, decimals);
 };
+
+export const fromBytes = str => {
+  return [...Buffer.from(str, 'binary')]
+    .map((el, index, {length}) => {
+      return BigInt(el * 256 ** (length - (1 + index)));
+    })
+    .reduce((prev, curr) => {
+      return prev + curr;
+    }, BigInt(0))
+    .toString();
+};
