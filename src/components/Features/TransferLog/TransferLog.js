@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 
 import {LINKS} from '../../../constants';
 import {
@@ -19,11 +19,25 @@ import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransferLog.module.scss';
 import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
 
-export const TransferLog = ({transfer, onCompleteTransferClick}) => {
+export const TransferLog = forwardRef(({transfer, onCompleteTransferClick}, ref) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransferData();
   const {chainId} = useWallets();
+  const recordRef = useRef();
+
+  const activateScrollIntoView = () => {
+    recordRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  useImperativeHandle(ref, () => {
+    return {
+      scroll: activateScrollIntoView
+    };
+  });
 
   useEffect(() => {
     setSign(transfer.type === action ? '-' : '+');
@@ -63,7 +77,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
 
   return (
     <>
-      <div className={styles.transferLog}>
+      <div ref={recordRef} className={styles.transferLog}>
         <div className={styles.left}>
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
@@ -85,7 +99,8 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
       <hr />
     </>
   );
-};
+});
+TransferLog.displayName = 'TransferLog';
 
 const CompleteTransferButton = ({onClick}) => {
   const {colorBeta} = useColors();
