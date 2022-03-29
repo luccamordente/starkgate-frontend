@@ -34,6 +34,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: debug stage
+        run: |
+          echo ${{ inputs.branch_name }}
       - name: Build and push images to GCR, with tag latest and git tag.
         if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
