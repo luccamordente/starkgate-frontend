@@ -31,6 +31,9 @@ jobs:
 
       - name: Run release script
         run: yarn run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
+          GH_TOKEN: ${{ secrets.USER_TOKEN }}
 
       - name: Push to remote branch
         uses: ad-m/github-push-action@master
