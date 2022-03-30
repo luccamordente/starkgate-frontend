@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha2",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
