@@ -43,7 +43,7 @@ jobs:
           docker push ${{ inputs.image_name }}
 
       - name: Build with production env and push with mainnet and stable tags.
-        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        if: ${{ inputs.branch_name == 'refs/heads/master' || inputs.branch_name == 'refs/heads/deploy-alpha' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
           docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
